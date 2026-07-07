@@ -32,7 +32,7 @@ function renderThemeSection(theme) {
     : "";
 
   return `
-    <section class="theme-section" data-theme="${theme.id}">
+    <section class="theme-section" data-theme="${theme.id}" style="--theme-accent: ${theme.accent}">
       <a href="theme.html?id=${theme.id}" class="theme-banner" data-theme="${theme.id}">
         <div class="theme-banner-bg" style="background-image: url('${theme.image}')"></div>
         <div class="theme-banner-caption">

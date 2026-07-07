@@ -457,7 +457,22 @@ img {
 }
 
 .theme-section {
-  margin-bottom: 3.5rem;
+  --theme-accent: var(--accent);
+  margin-bottom: 2.5rem;
+  padding: 1.35rem 1.35rem 1.1rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--theme-accent) 13%, transparent),
+    color-mix(in srgb, var(--theme-accent) 4%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 22%, transparent);
+}
+
+@media (max-width: 640px) {
+  .theme-section {
+    padding: 1rem 1rem 0.85rem;
+  }
 }
 
 .theme-banner {
