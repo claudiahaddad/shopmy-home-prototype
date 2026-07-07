@@ -81,11 +81,41 @@ function renderRecommendedSection() {
   `;
 }
 
-function renderHome() {
+function renderCreatorSection(creatorId) {
+  const creator = getCreatorById(creatorId);
+  if (!creator) return "";
+
+  const picks = getCreatorPicks(creatorId, 10);
+
+  return `
+    <section class="creator-section" data-creator="${creator.id}">
+      <div class="creator-header">
+        <div class="creator-identity">
+          <img class="creator-avatar" src="${creator.image}" alt="${creator.fullName}" />
+          <div class="creator-meta">
+            <p class="creator-eyebrow">Recently curated</p>
+            <h2 class="creator-name">${creator.name}</h2>
+            <p class="creator-sub">${creator.fullName} · ${creator.handle}</p>
+            <p class="creator-bio">${creator.bio}</p>
+          </div>
+        </div>
+        <button class="creator-follow" aria-pressed="true">Following</button>
+      </div>
+      <div class="carousel-wrap">
+        <button class="carousel-btn prev" aria-label="Scroll left">‹</button>
+        <div class="carousel">
+          ${picks.map(renderProductCard).join("")}
+        </div>
+        <button class="carousel-btn next" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderNewUserView() {
   const themes = getPersonalizedThemes();
 
-  const app = document.getElementById("app");
-  app.innerHTML = `
+  return `
     <section class="hero">
       <p class="hero-eyebrow">Your circle · ${USER_PROFILE.location}</p>
       <h1>Discover what to <em>shop</em> next</h1>
@@ -102,8 +132,61 @@ function renderHome() {
 
     ${renderRecommendedSection()}
   `;
-
-  document.querySelectorAll(".theme-section").forEach(initCarousel);
 }
 
-document.addEventListener("DOMContentLoaded", renderHome);
+function renderFollowingView() {
+  const themes = getPersonalizedThemes();
+  const topThemes = themes.slice(0, 2);
+  const restThemes = themes.slice(2);
+
+  return `
+    <section class="hero">
+      <p class="hero-eyebrow">From the creators you follow</p>
+      <h1>Fresh picks from your <em>favorites</em></h1>
+      <p class="hero-sub">The latest saves from creators in ${USER_PROFILE.name}'s circle, updated as they shop.</p>
+      <div class="personalization-bar">
+        <span>✦</span>
+        <span>You follow <strong>2 creators</strong> · new items surface here first</span>
+      </div>
+    </section>
+
+    <section class="theme-sections">
+      ${renderCreatorSection("sofia")}
+      ${topThemes.map(renderThemeSection).join("")}
+      ${renderCreatorSection("alexandra")}
+      ${restThemes.map(renderThemeSection).join("")}
+    </section>
+
+    ${renderRecommendedSection()}
+  `;
+}
+
+function renderView(view) {
+  const app = document.getElementById("app");
+  app.innerHTML = view === "following" ? renderFollowingView() : renderNewUserView();
+
+  app
+    .querySelectorAll(".theme-section, .creator-section")
+    .forEach(initCarousel);
+
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function initTabs() {
+  const tabs = document.querySelectorAll(".proto-tab");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      if (tab.classList.contains("active")) return;
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      renderView(tab.dataset.view);
+    });
+  });
+}
+
+function init() {
+  initTabs();
+  renderView("new-user");
+}
+
+document.addEventListener("DOMContentLoaded", init);

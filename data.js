@@ -113,8 +113,56 @@ const THEMES = [
   },
 ];
 
+const CREATORS = [
+  {
+    id: "sofia",
+    name: "Sofia's Picks",
+    fullName: "Sofia Richie Grainge",
+    handle: "@sofiarichiegrainge",
+    image: "assets/creator-sofia.png",
+    bio: "Quiet-luxury staples, tailored neutrals, and effortless date-night pieces.",
+    pickIds: [21, 24, 1, 22, 15, 11, 84, 6, 27, 30, 25, 20],
+  },
+  {
+    id: "alexandra",
+    name: "Alexandra's Picks",
+    fullName: "Alexandra Leclerc",
+    handle: "@alexandra.leclerc",
+    image: "assets/creator-alexandra.png",
+    bio: "Riviera-ready dresses, statement accessories, and wedding-season finds.",
+    pickIds: [15, 17, 5, 81, 10, 13, 27, 86, 2, 88, 14, 21],
+  },
+];
+
 function getThemeById(id) {
   return THEMES.find((t) => t.id === id);
+}
+
+function getAllProducts() {
+  return THEMES.flatMap((t) => t.products);
+}
+
+function getProductById(id) {
+  return getAllProducts().find((p) => p.id === id);
+}
+
+function getCreatorById(id) {
+  return CREATORS.find((c) => c.id === id);
+}
+
+function getCreatorPicks(creatorId, limit = 10) {
+  const creator = getCreatorById(creatorId);
+  if (!creator) return [];
+
+  const picks = creator.pickIds
+    .map(getProductById)
+    .filter(Boolean);
+
+  // Rotate the order on each visit so the row always feels fresh.
+  const offset = Math.floor(Date.now() / (1000 * 60 * 60)) % picks.length;
+  const rotated = [...picks.slice(offset), ...picks.slice(0, offset)];
+
+  return rotated.slice(0, limit);
 }
 
 function getPersonalizedThemes() {

@@ -161,12 +161,165 @@ img {
   margin: 0 auto;
 }
 
+/* Prototype tabs */
+.proto-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+.proto-tabs-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.6rem 1.5rem;
+}
+
+.proto-tabs-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-right: 0.5rem;
+}
+
+.proto-tab {
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.proto-tab:hover {
+  color: var(--ink);
+  border-color: var(--border);
+}
+
+.proto-tab.active {
+  color: var(--header-text);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
 /* Hero */
 .hero {
   max-width: 1400px;
   margin: 0 auto;
   padding: 3rem 1.5rem 2rem;
   text-align: center;
+}
+
+/* Creator picks row */
+.creator-section {
+  margin-bottom: 3.5rem;
+}
+
+.creator-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.creator-identity {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+.creator-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 25%;
+  flex-shrink: 0;
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.creator-meta {
+  min-width: 0;
+}
+
+.creator-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.15rem;
+}
+
+.creator-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 0.2rem;
+}
+
+.creator-sub {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin: 0 0 0.3rem;
+}
+
+.creator-bio {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 46ch;
+}
+
+.creator-follow {
+  flex-shrink: 0;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.creator-follow:hover {
+  background: var(--ink);
+  color: var(--header-text);
+  border-color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .creator-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .creator-bio {
+    display: none;
+  }
 }
 
 .hero-eyebrow {
