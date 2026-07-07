@@ -222,7 +222,16 @@ img {
 
 /* Creator picks row */
 .creator-section {
-  margin-bottom: 3.5rem;
+  --creator-gold: #c9a253;
+  margin-bottom: 2.5rem;
+  padding: 1.35rem 1.35rem 1.1rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--creator-gold) 22%, transparent),
+    color-mix(in srgb, var(--creator-gold) 7%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--creator-gold) 38%, transparent);
 }
 
 .creator-header {
@@ -232,10 +241,18 @@ img {
   gap: 1.5rem;
   margin-bottom: 1.25rem;
   padding: 1.25rem 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--creator-gold) 30%, transparent);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+@media (max-width: 640px) {
+  .creator-section {
+    padding: 1rem 1rem 0.85rem;
+  }
 }
 
 .creator-identity {
@@ -252,8 +269,8 @@ img {
   object-fit: cover;
   object-position: center 25%;
   flex-shrink: 0;
-  border: 2px solid var(--bg);
-  box-shadow: 0 0 0 1px var(--border);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--creator-gold) 55%, transparent);
 }
 
 .creator-meta {
@@ -265,7 +282,7 @@ img {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: color-mix(in srgb, var(--creator-gold) 72%, var(--ink));
   margin: 0 0 0.15rem;
 }
 
@@ -305,9 +322,9 @@ img {
 }
 
 .creator-follow:hover {
-  background: var(--ink);
-  color: var(--header-text);
-  border-color: var(--ink);
+  background: var(--creator-gold);
+  color: #fff;
+  border-color: var(--creator-gold);
 }
 
 @media (max-width: 640px) {
