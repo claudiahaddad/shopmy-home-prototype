@@ -8,6 +8,7 @@ const PRODUCT_IMAGE_FALLBACK = "https://picsum.photos/id/434/400/500";
 const SAVED_BY_AVATARS = {
   Sofia: "assets/sofia-avatar.png",
   Alexandra: "assets/alexandra-avatar.png",
+  Hailee: "assets/hailee-avatar.png",
 };
 
 function productImage(photoId) {
@@ -135,6 +136,17 @@ const CREATORS = [
     bio: "Riviera-ready dresses, statement accessories, and wedding-season finds.",
     updated: "Updated this week",
     pickIds: [15, 17, 5, 81, 10, 13, 27, 86, 2, 88, 14, 21],
+  },
+  {
+    id: "hailee",
+    name: "Hailee's Picks",
+    fullName: "Hailee Steinfeld",
+    shortName: "Hailee",
+    handle: "@haileesteinfeld",
+    image: "assets/creator-hailee.png",
+    bio: "Off-duty cool-girl staples, sharp tailoring, and red-carpet-ready statement pieces.",
+    updated: "Updated today",
+    pickIds: [26, 82, 9, 28, 3, 89, 19, 7, 85, 4, 16, 12],
   },
 ];
 

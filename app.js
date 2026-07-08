@@ -161,7 +161,8 @@ function renderJustCuratedSection() {
 function renderFollowingView() {
   const themes = getPersonalizedThemes();
   const topThemes = themes.slice(0, 2);
-  const restThemes = themes.slice(2);
+  const midThemes = themes.slice(2, 3);
+  const restThemes = themes.slice(3);
 
   return `
     <section class="hero">
@@ -174,6 +175,8 @@ function renderFollowingView() {
       ${renderCreatorSection("sofia")}
       ${topThemes.map(renderThemeSection).join("")}
       ${renderCreatorSection("alexandra")}
+      ${midThemes.map(renderThemeSection).join("")}
+      ${renderCreatorSection("hailee")}
       ${restThemes.map(renderThemeSection).join("")}
     </section>
 
