@@ -137,6 +137,27 @@ function renderNewUserView() {
   `;
 }
 
+function renderJustCuratedSection() {
+  const feed = getJustCuratedFeed(12);
+
+  return `
+    <section class="just-curated theme-section" data-section="just-curated">
+      <div class="jc-header">
+        <p class="jc-live"><span class="jc-live-dot"></span>Live from your creators</p>
+        <h2 class="jc-title">Just Curated</h2>
+        <p class="jc-sub">The latest saves from creators you follow — freshest first</p>
+      </div>
+      <div class="carousel-wrap">
+        <button class="carousel-btn prev" aria-label="Scroll left">‹</button>
+        <div class="carousel">
+          ${feed.map(renderJustCuratedCard).join("")}
+        </div>
+        <button class="carousel-btn next" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+  `;
+}
+
 function renderFollowingView() {
   const themes = getPersonalizedThemes();
   const topThemes = themes.slice(0, 2);
@@ -149,6 +170,7 @@ function renderFollowingView() {
     </section>
 
     <section class="theme-sections">
+      ${renderJustCuratedSection()}
       ${renderCreatorSection("sofia")}
       ${topThemes.map(renderThemeSection).join("")}
       ${renderCreatorSection("alexandra")}

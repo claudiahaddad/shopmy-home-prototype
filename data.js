@@ -118,6 +118,7 @@ const CREATORS = [
     id: "sofia",
     name: "Sofia's Picks",
     fullName: "Sofia Richie Grainge",
+    shortName: "Sofia",
     handle: "@sofiarichiegrainge",
     image: "assets/creator-sofia.png",
     bio: "Quiet-luxury staples, tailored neutrals, and effortless date-night pieces.",
@@ -128,6 +129,7 @@ const CREATORS = [
     id: "alexandra",
     name: "Alexandra's Picks",
     fullName: "Alexandra Leclerc",
+    shortName: "Alexandra",
     handle: "@alexandra.leclerc",
     image: "assets/creator-alexandra.png",
     bio: "Riviera-ready dresses, statement accessories, and wedding-season finds.",
@@ -195,6 +197,74 @@ function getRecommendedProducts() {
   }
 
   return products.slice(0, 20);
+}
+
+const JUST_CURATED_TIMES = [
+  "Just now",
+  "22m ago",
+  "48m ago",
+  "1h ago",
+  "2h ago",
+  "3h ago",
+  "5h ago",
+  "8h ago",
+  "Today",
+  "Today",
+  "Yesterday",
+  "Yesterday",
+];
+
+function getJustCuratedFeed(limit = 12) {
+  const perCreator = CREATORS.map((c) => ({
+    creator: c,
+    picks: getCreatorPicks(c.id, 8),
+  }));
+
+  const feed = [];
+  const seen = new Set();
+  let round = 0;
+
+  while (feed.length < limit) {
+    let addedThisRound = false;
+    for (const { creator, picks } of perCreator) {
+      const product = picks[round];
+      if (!product) continue;
+      addedThisRound = true;
+      if (seen.has(product.id)) continue;
+      seen.add(product.id);
+      feed.push({ product, creator });
+      if (feed.length >= limit) break;
+    }
+    if (!addedThisRound) break;
+    round++;
+  }
+
+  return feed.map((entry, i) => ({
+    ...entry,
+    timeAgo: JUST_CURATED_TIMES[i] || "This week",
+  }));
+}
+
+function renderJustCuratedCard(entry) {
+  const { product, creator, timeAgo } = entry;
+  const avatar = SAVED_BY_AVATARS[creator.shortName] || PRODUCT_IMAGE_FALLBACK;
+
+  return `
+    <article class="product-card jc-card" data-id="${product.id}">
+      <button class="heart-btn" aria-label="Save item" onclick="event.stopPropagation()">♡</button>
+      <span class="jc-time">${timeAgo}</span>
+      <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${PRODUCT_IMAGE_FALLBACK}'" />
+      <div class="product-info">
+        <div class="product-brand">${product.brand}</div>
+        <h4 class="product-name">${product.name}</h4>
+        <div class="product-price">$${product.price}</div>
+        <div class="product-saved-by">
+          <img src="${avatar}" alt="" class="saved-by-avatar" />
+          <span>Curated by <strong>${creator.shortName}</strong></span>
+        </div>
+      </div>
+    </article>
+  `;
 }
 
 function renderProductMeta(product) {
