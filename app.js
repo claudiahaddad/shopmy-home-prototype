@@ -122,11 +122,7 @@ function renderNewUserView() {
     <section class="hero">
       <p class="hero-eyebrow">Your circle · ${USER_PROFILE.location}</p>
       <h1>Discover what to <em>shop</em> next</h1>
-      <p class="hero-sub">Browse curated themes picked for your style — not endless product grids.</p>
-      <div class="personalization-bar">
-        <span>✦</span>
-        <span>Themes ordered for <strong>${USER_PROFILE.name}</strong> based on saves, follows & location</span>
-      </div>
+      <p class="hero-sub">Curated just for you based on your activity, your favorite brands and creators, and what's trending near you.</p>
     </section>
 
     <section class="theme-sections">
