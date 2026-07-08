@@ -146,11 +146,6 @@ function renderFollowingView() {
     <section class="hero">
       <p class="hero-eyebrow">From the creators you follow</p>
       <h1>Fresh picks from your <em>favorites</em></h1>
-      <p class="hero-sub">The latest saves from creators in ${USER_PROFILE.name}'s circle, updated as they shop.</p>
-      <div class="personalization-bar">
-        <span>✦</span>
-        <span>You follow <strong>2 creators</strong> · new items surface here first</span>
-      </div>
     </section>
 
     <section class="theme-sections">
