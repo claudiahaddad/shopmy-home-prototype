@@ -279,6 +279,146 @@ function renderJustCuratedCard(entry) {
   `;
 }
 
+const BRANDS = [
+  {
+    id: "doen",
+    name: "DÔEN",
+    logo: "assets/brand-doen.png",
+    tagline: "Romantic, California-cool dresses & knits",
+    engagement: "Your #1 brand · 24 saves",
+    launchIds: [1, 15, 11, 17, 85, 8, 88, 20],
+  },
+  {
+    id: "cultgaia",
+    name: "Cult Gaia",
+    logo: "assets/brand-cultgaia.png",
+    tagline: "Sculptural bags & statement resortwear",
+    engagement: "18 saves this season",
+    launchIds: [14, 2, 10, 5, 4, 7, 19, 90],
+  },
+  {
+    id: "farmrio",
+    name: "FARM Rio",
+    logo: "assets/brand-farmrio.png",
+    tagline: "Vibrant Brazilian prints & summer-ready pieces",
+    engagement: "You shop often · 15 saves",
+    launchIds: [88, 81, 89, 7, 84, 82, 90, 8],
+  },
+  {
+    id: "stillhere",
+    name: "Still Here",
+    logo: "assets/brand-stillhere.png",
+    tagline: "New York–made denim & elevated basics",
+    engagement: "12 saves this month",
+    launchIds: [84, 89, 28, 26, 30, 22, 25, 83],
+  },
+];
+
+const BRAND_SECTION_TIMES = [
+  "Just dropped",
+  "Today",
+  "2 days ago",
+  "3 days ago",
+  "This week",
+  "This week",
+  "Last week",
+  "Last week",
+  "2 weeks ago",
+  "2 weeks ago",
+];
+
+const JUST_LAUNCHED_TIMES = [
+  "Just dropped",
+  "Today",
+  "Today",
+  "1 day ago",
+  "2 days ago",
+  "2 days ago",
+  "3 days ago",
+  "4 days ago",
+  "This week",
+  "This week",
+  "This week",
+  "Last week",
+];
+
+function getBrandById(id) {
+  return BRANDS.find((b) => b.id === id);
+}
+
+function getBrandLaunchProducts(brandId, limit = 10) {
+  const brand = getBrandById(brandId);
+  if (!brand) return [];
+
+  const items = brand.launchIds.map(getProductById).filter(Boolean);
+
+  // Rotate so the newest-arrivals row always feels fresh on each visit.
+  const offset = Math.floor(Date.now() / (1000 * 60 * 60)) % items.length;
+  const rotated = [...items.slice(offset), ...items.slice(0, offset)];
+
+  return rotated.slice(0, limit);
+}
+
+function getBrandLaunchEntries(brandId, limit = 10) {
+  const brand = getBrandById(brandId);
+  if (!brand) return [];
+
+  return getBrandLaunchProducts(brandId, limit).map((product, i) => ({
+    product,
+    brand,
+    timeAgo: BRAND_SECTION_TIMES[i] || "This month",
+  }));
+}
+
+function getJustLaunchedFeed(limit = 12) {
+  const perBrand = BRANDS.map((b) => ({
+    brand: b,
+    items: getBrandLaunchProducts(b.id, 8),
+  }));
+
+  const feed = [];
+  const seen = new Set();
+  let round = 0;
+
+  while (feed.length < limit) {
+    let addedThisRound = false;
+    for (const { brand, items } of perBrand) {
+      const product = items[round];
+      if (!product) continue;
+      addedThisRound = true;
+      if (seen.has(product.id)) continue;
+      seen.add(product.id);
+      feed.push({ product, brand });
+      if (feed.length >= limit) break;
+    }
+    if (!addedThisRound) break;
+    round++;
+  }
+
+  return feed.map((entry, i) => ({
+    ...entry,
+    timeAgo: JUST_LAUNCHED_TIMES[i] || "This week",
+  }));
+}
+
+function renderBrandLaunchCard(entry) {
+  const { product, brand, timeAgo } = entry;
+
+  return `
+    <article class="product-card jl-card" data-id="${product.id}">
+      <button class="heart-btn" aria-label="Save item" onclick="event.stopPropagation()">♡</button>
+      <span class="jl-time"><span class="jl-time-dot"></span>${timeAgo}</span>
+      <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${PRODUCT_IMAGE_FALLBACK}'" />
+      <div class="product-info">
+        <div class="product-brand">${brand.name}</div>
+        <h4 class="product-name">${product.name}</h4>
+        <div class="product-price">$${product.price}</div>
+        <div class="product-launch-meta">✦ New arrival</div>
+      </div>
+    </article>
+  `;
+}
+
 function renderProductMeta(product) {
   const avatar = product.savedBy && SAVED_BY_AVATARS[product.savedBy];
   if (avatar) {

@@ -298,6 +298,222 @@ img {
   padding: 0.2rem 0.5rem;
 }
 
+/* Just Launched live feed (brands) */
+.theme-section.just-launched {
+  background: linear-gradient(180deg, #17233a 0%, #1f3050 100%);
+  border: 1px solid #1f3050;
+  color: #f4f7fc;
+}
+
+.jl-live {
+  color: #a8c6f0;
+}
+
+.jl-live .jc-live-dot {
+  background: #4c8dff;
+  box-shadow: 0 0 0 0 rgba(76, 141, 255, 0.6);
+  animation: jl-pulse 1.8s ease-out infinite;
+}
+
+@keyframes jl-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(76, 141, 255, 0.6); }
+  70% { box-shadow: 0 0 0 7px rgba(76, 141, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(76, 141, 255, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jl-live .jc-live-dot { animation: none; }
+}
+
+.jl-card {
+  position: relative;
+}
+
+.jl-time {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.55rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #1f3050;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+}
+
+.jl-time-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4c8dff;
+}
+
+.product-launch-meta {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #3a6bd6;
+  margin-top: 0.35rem;
+}
+
+/* Followed brand row */
+.brand-section {
+  --brand-tint: #4c73a6;
+  margin-bottom: 2.5rem;
+  padding: 1.35rem 1.35rem 1.1rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-tint) 18%, transparent),
+    color-mix(in srgb, var(--brand-tint) 5%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--brand-tint) 30%, transparent);
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--brand-tint) 24%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.brand-identity {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+.brand-logo-wrap {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand-tint) 30%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.brand-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.5rem;
+}
+
+.brand-meta {
+  min-width: 0;
+}
+
+.brand-eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.15rem;
+  flex-wrap: wrap;
+}
+
+.brand-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--brand-tint) 78%, var(--ink));
+  margin: 0;
+}
+
+.brand-engagement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #2f5aa8;
+  background: rgba(47, 90, 168, 0.1);
+  border: 1px solid rgba(47, 90, 168, 0.22);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.brand-engagement-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3a6bd6;
+}
+
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 0.2rem;
+}
+
+.brand-tagline {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 46ch;
+}
+
+.brand-follow {
+  flex-shrink: 0;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.brand-follow:hover {
+  background: var(--brand-tint);
+  color: #fff;
+  border-color: var(--brand-tint);
+}
+
+@media (max-width: 640px) {
+  .brand-section {
+    padding: 1rem 1rem 0.85rem;
+  }
+
+  .brand-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .brand-tagline {
+    display: none;
+  }
+}
+
 /* Creator picks row */
 .creator-section {
   --creator-gold: #c9a253;

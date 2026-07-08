@@ -180,12 +180,101 @@ function renderFollowingView() {
   `;
 }
 
+function renderBrandSection(brandId) {
+  const brand = getBrandById(brandId);
+  if (!brand) return "";
+
+  const launches = getBrandLaunchEntries(brandId, 10);
+
+  return `
+    <section class="brand-section" data-brand="${brand.id}">
+      <div class="brand-header">
+        <div class="brand-identity">
+          <div class="brand-logo-wrap">
+            <img class="brand-logo" src="${brand.logo}" alt="${brand.name}" />
+          </div>
+          <div class="brand-meta">
+            <div class="brand-eyebrow-row">
+              <p class="brand-eyebrow">Just launched</p>
+              ${brand.engagement ? `<span class="brand-engagement"><span class="brand-engagement-dot"></span>${brand.engagement}</span>` : ""}
+            </div>
+            <h2 class="brand-name">${brand.name}</h2>
+            <p class="brand-tagline">${brand.tagline}</p>
+          </div>
+        </div>
+        <button class="brand-follow" aria-pressed="true">Following</button>
+      </div>
+      <div class="carousel-wrap">
+        <button class="carousel-btn prev" aria-label="Scroll left">‹</button>
+        <div class="carousel">
+          ${launches.map(renderBrandLaunchCard).join("")}
+        </div>
+        <button class="carousel-btn next" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderJustLaunchedSection() {
+  const feed = getJustLaunchedFeed(12);
+
+  return `
+    <section class="just-launched theme-section" data-section="just-launched">
+      <div class="jc-header">
+        <p class="jc-live jl-live"><span class="jc-live-dot"></span>New from your brands</p>
+        <h2 class="jc-title">Just Launched</h2>
+        <p class="jc-sub">The newest arrivals from brands you follow — freshest first</p>
+      </div>
+      <div class="carousel-wrap">
+        <button class="carousel-btn prev" aria-label="Scroll left">‹</button>
+        <div class="carousel">
+          ${feed.map(renderBrandLaunchCard).join("")}
+        </div>
+        <button class="carousel-btn next" aria-label="Scroll right">›</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderFollowingBrandsView() {
+  const themes = getPersonalizedThemes();
+  const topThemes = themes.slice(0, 2);
+  const midThemes = themes.slice(2, 3);
+  const restThemes = themes.slice(3);
+
+  return `
+    <section class="hero">
+      <p class="hero-eyebrow">From the brands you follow</p>
+      <h1>New arrivals from your <em>go-to labels</em></h1>
+    </section>
+
+    <section class="theme-sections">
+      ${renderJustLaunchedSection()}
+      ${renderBrandSection("doen")}
+      ${topThemes.map(renderThemeSection).join("")}
+      ${renderBrandSection("cultgaia")}
+      ${midThemes.map(renderThemeSection).join("")}
+      ${renderBrandSection("farmrio")}
+      ${renderBrandSection("stillhere")}
+      ${restThemes.map(renderThemeSection).join("")}
+    </section>
+
+    ${renderRecommendedSection()}
+  `;
+}
+
 function renderView(view) {
   const app = document.getElementById("app");
-  app.innerHTML = view === "following" ? renderFollowingView() : renderNewUserView();
+  if (view === "following") {
+    app.innerHTML = renderFollowingView();
+  } else if (view === "following-brands") {
+    app.innerHTML = renderFollowingBrandsView();
+  } else {
+    app.innerHTML = renderNewUserView();
+  }
 
   app
-    .querySelectorAll(".theme-section, .creator-section")
+    .querySelectorAll(".theme-section, .creator-section, .brand-section")
     .forEach(initCarousel);
 
   window.scrollTo({ top: 0, behavior: "auto" });
