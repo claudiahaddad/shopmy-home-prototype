@@ -163,7 +163,7 @@ function renderFollowingView() {
   return `
     <section class="hero">
       <p class="hero-eyebrow">From the creators you follow</p>
-      <h1>Fresh picks from your <em>favorites</em></h1>
+      <h1>Discover what to <em>shop</em> next</h1>
     </section>
 
     <section class="theme-sections">
@@ -245,7 +245,7 @@ function renderFollowingBrandsView() {
   return `
     <section class="hero">
       <p class="hero-eyebrow">From the brands you follow</p>
-      <h1>New arrivals from your <em>go-to labels</em></h1>
+      <h1>Discover what to <em>shop</em> next</h1>
     </section>
 
     <section class="theme-sections">
