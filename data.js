@@ -121,6 +121,7 @@ const CREATORS = [
     handle: "@sofiarichiegrainge",
     image: "assets/creator-sofia.png",
     bio: "Quiet-luxury staples, tailored neutrals, and effortless date-night pieces.",
+    updated: "Updated today",
     pickIds: [21, 24, 1, 22, 15, 11, 84, 6, 27, 30, 25, 20],
   },
   {
@@ -130,6 +131,7 @@ const CREATORS = [
     handle: "@alexandra.leclerc",
     image: "assets/creator-alexandra.png",
     bio: "Riviera-ready dresses, statement accessories, and wedding-season finds.",
+    updated: "Updated this week",
     pickIds: [15, 17, 5, 81, 10, 13, 27, 86, 2, 88, 14, 21],
   },
 ];

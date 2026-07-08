@@ -93,7 +93,10 @@ function renderCreatorSection(creatorId) {
         <div class="creator-identity">
           <img class="creator-avatar" src="${creator.image}" alt="${creator.fullName}" />
           <div class="creator-meta">
-            <p class="creator-eyebrow">Recently curated</p>
+            <div class="creator-eyebrow-row">
+              <p class="creator-eyebrow">Recently curated</p>
+              ${creator.updated ? `<span class="creator-updated"><span class="creator-updated-dot"></span>${creator.updated}</span>` : ""}
+            </div>
             <h2 class="creator-name">${creator.name}</h2>
             <p class="creator-sub">${creator.fullName} · ${creator.handle}</p>
             <p class="creator-bio">${creator.bio}</p>
