@@ -412,7 +412,6 @@ function renderBrandLaunchCard(entry) {
         <div class="product-brand">${brand.name}</div>
         <h4 class="product-name">${product.name}</h4>
         <div class="product-price">$${product.price}</div>
-        <div class="product-launch-meta">✦ New arrival</div>
       </div>
     </article>
   `;
