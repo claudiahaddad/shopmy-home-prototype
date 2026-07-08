@@ -407,7 +407,6 @@ function renderBrandLaunchCard(entry) {
   return `
     <article class="product-card jl-card" data-id="${product.id}">
       <button class="heart-btn" aria-label="Save item" onclick="event.stopPropagation()">♡</button>
-      <span class="jl-time"><span class="jl-time-dot"></span>${timeAgo}</span>
       <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${PRODUCT_IMAGE_FALLBACK}'" />
       <div class="product-info">
         <div class="product-brand">${brand.name}</div>
